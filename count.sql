@@ -1,8 +1,20 @@
 -- Number of offers by model with associated models
-select mp.offer_id                           offerId,
-       m.id                                  modelId,
-       m.document,
-       count(mp.id) over (partition by m.id) nbOffers
+-- Data
+-- Number of offers by model with associated models
+select m.id                                 modelId,
+       p.offer_id                           offerId,
+       o.seller
 from model m
-         join myproduct mp on m.id = mp.model_id
-order by offer_id;
+         join product p on m.id = p.model_id
+         join offer o on p.offer_id = o.id
+order by model_id;
+
+-- Count
+select m.id                                 modelId,
+       p.offer_id                           offerId,
+       o.seller,
+       count(p.id) over (partition by m.id) nbOffers
+from model m
+         join product p on m.id = p.model_id
+         join offer o on p.offer_id = o.id
+order by model_id;

@@ -1,4 +1,13 @@
 -- Get category tree for clothes
+-- Data
+select parent_category.id,
+       parent_category.parent_category_id,
+       parent_category.description path,
+       parent_category.description tree
+from category parent_category
+where parent_category.id = 1;
+
+-- Tree
 WITH RECURSIVE cte as (
     select parent_category.id,
            parent_category.parent_category_id,
