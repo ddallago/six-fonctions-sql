@@ -11,6 +11,7 @@ from product p
          join rating r on m.id = r.model_id
 where p.model_id in (1, 2);
 
+--Analytic
 select modelId, offerId, price, seller, score, priceAvg, ratingRn
 from (
          select o.id                                                              offerId,

@@ -1,6 +1,5 @@
 -- Number of offers by model with associated models
 -- Data
--- Number of offers by model with associated models
 select m.id                                 modelId,
        p.offer_id                           offerId,
        o.seller
