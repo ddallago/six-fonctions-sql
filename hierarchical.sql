@@ -1,4 +1,5 @@
-WITH RECURSIVE tree as (
+-- Get category tree for clothes
+WITH RECURSIVE cte as (
     select parent_category.id,
            parent_category.parent_category_id,
            parent_category.description path,
@@ -9,11 +10,11 @@ WITH RECURSIVE tree as (
     UNION ALL
     select child_category.id,
            child_category.parent_category_id,
-           tree.path || '/' || child_category.description,
+           cte.path || '/' || child_category.description,
            lpad(' ', level * 2) || child_category.description tree,
-           tree.level + 1
+           cte.level + 1
     from category child_category
-             join tree on tree.id = child_category.parent_category_id
+             join cte on cte.id = child_category.parent_category_id
 )
-select *
-from tree;
+select id, parent_category_id, path, tree, level
+from cte;
